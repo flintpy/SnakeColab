@@ -1,0 +1,34 @@
+{
+  "name": "advanced-snake-game",
+  "version": "1.0.0",
+  "description": "An advanced snake game with multiplayer, AI, and various customization options",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest",
+    "build": "webpack",
+    "deploy": "pm2 start server.js --name 'snake-game'"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/advanced-snake-game.git"
+  },
+  "keywords": ["snake", "game", "multiplayer", "AI"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "compression": "^1.7.4"
+  },
+  "devDependencies": {
+    "jest": "^27.0.6",
+    "webpack": "^5.38.1",
+    "pm2": "^5.1.0"
+  },
+  "browserslist": "> 0.2%, not dead",
+  "private": false
+}
