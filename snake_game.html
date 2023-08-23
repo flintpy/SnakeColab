@@ -1,42 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="An advanced snake game with adjustable difficulty and high scores.">
+    <link rel="icon" href="./favicon.ico"/>
     <title>Advanced Snake Game</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/static/css/styles.min.css">
+    <link rel="preload" href="/static/scripts/snake.min.js" as="script">
 </head>
+
 <body>
-    <main id="game-container" role="main">
+    <main id="game-container" aria-live="polite" role="main">
         <header>
-            <h1>Advanced Snake Game</h1>
-            <p>Choose your difficulty and use your arrow keys to control the snake!</p>
+            <h1 aria-atomic="true" aria-live="true">Advanced Snake Game</h1>
+            <p>Use your arrow keys to control the snake. Challenge yourself with different speed levels!</p>
         </header>
         <section>
-            <div role="status" id="score-board">
-                Score: <span id="score">0</span>
+            <div id="score-board" role="status" aria-atomic="true" aria-live="assertive">
+                Score: <strong id="score">0</strong>
             </div>
-            <div id="game-board" tabindex="0"></div>
-            <button id="start-button" aria-label="Start the game">Start Game</button>
-            <label for="difficulty"> Difficulty Level: </label>
+            <canvas id="game-board" tabindex="0" aria-labelledby="score-board"></canvas>
+            <button id="start-button" aria-label="Start the game" class="btn-start">Start Game</button>
+            <label for="difficulty">Difficulty Level:</label>
             <select id="difficulty" aria-label="Choose game difficulty">
                 <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
+                <option value="medium" selected>Medium</option>
                 <option value="hard">Hard</option>
             </select>
         </section>
-        <div id="error-message" style="display: none;">
+        <div id="error-message" style="display: none;" role="alert">
             <strong>Error:</strong> <span></span>
         </div>
     </main>
-    <script src="snake.js"></script>
+    <script src="/static/scripts/snake.min.js"></script>
     <script>
+        document.getElementById('start-button').addEventListener('click', () => {
+            // Clear the game board and interval before starting a new game
+            if (window.snakeGame) {
+                window.snakeGame.clearGame();
+            }
+            const difficulty = document.getElementById('difficulty').value;
+            window.snakeGame = new AdvancedSnakeGame(difficulty);
+        });
+
         window.onerror = function (message, source, lineno, colno, error) {
-            const errorElement = document.getElementById('error-message');
+            const errorElement = document.querySelector('#error-message');
             errorElement.style.display = 'block';
             errorElement.querySelector('span').textContent = message;
         };
     </script>
 </body>
+
 </html>
