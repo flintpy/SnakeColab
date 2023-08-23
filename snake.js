@@ -193,9 +193,12 @@ class AdvancedSnakeGame {
 }
 
 // Instantiating the game
-document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById('start-button').addEventListener('click', () => {
-        const difficulty = document.getElementById('difficulty').value;
-        new AdvancedSnakeGame(difficulty);
-    });
+document.getElementById('start-button').addEventListener('click', () => {
+    // Clear the game board and interval before starting a new game
+    if (window.snakeGame) {
+        window.snakeGame.env.gameBoard.innerHTML = '';
+        clearInterval(window.snakeGame.env.interval);
+    }
+    const difficulty = document.getElementById('difficulty').value;
+    window.snakeGame = new AdvancedSnakeGame(difficulty);
 });
