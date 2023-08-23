@@ -193,7 +193,9 @@ class AdvancedSnakeGame {
 }
 
 // Instantiating the game
-document.getElementById('start-button').addEventListener('click', () => {
-    const difficulty = document.getElementById('difficulty').value;
-    new AdvancedSnakeGame(difficulty);
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('start-button').addEventListener('click', () => {
+        const difficulty = document.getElementById('difficulty').value;
+        new AdvancedSnakeGame(difficulty);
+    });
 });
