@@ -1,6 +1,16 @@
+// Instantiating the game 
+document.getElementById('start-button').addEventListener('click', () => {
+    const difficulty = document.getElementById('difficulty').value;
+    new AdvancedSnakeGame(difficulty, 'game-board');
+});
+
 class AdvancedSnakeGame {
     constructor(difficulty, canvasId = 'game-board') {
-        this.config = {
+    this.canvasSize = {
+        width: canvasElement.width,
+        height: canvasElement.height
+    };  
+            this.config = {
             gridSize: 20,
             easySpeed: 200,
             mediumSpeed: 100,
@@ -23,11 +33,12 @@ class AdvancedSnakeGame {
         };
 
         this.state = {
-            snake: [ this.config.startingPoint ],
-            food: null,
-            direction: 'right',
-            score: this.config.startingScore,
-        };
+        direction: this.config.directionMap.ArrowRight,
+        snake: [this.config.startingPoint],
+        direction: 'right',
+        score: this.config.startingScore,
+        food: null,   
+    };
 
         this.canvas = document.getElementById(canvasId);
         this.context = this.canvas.getContext('2d');
@@ -65,7 +76,7 @@ class AdvancedSnakeGame {
     }
 
     moveSnake() {
-                const newHead = { ...this.state.snake[0] };
+        const newHead = { ...this.state.snake[0] };
         switch (this.state.direction) {
             case 'left': 
                 newHead.x = (newHead.x - 1 + this.config.gridSize) % this.config.gridSize; 
@@ -80,7 +91,9 @@ class AdvancedSnakeGame {
                 newHead.y = (newHead.y + 1) % this.config.gridSize; 
                 break;
     }
-    
+
+    this.state.snake.unshift(newHead);
+        
     checkCollision(head){
         if (this.state.snake.some(part => part.x === head.x && part.y === head.y)) {
             clearInterval(this.env.interval); // Game over if snake collides with itself
@@ -98,15 +111,12 @@ class AdvancedSnakeGame {
     }
     
     handleKeydown(event) {
-           const newDirection = this.config.directionMap[event.key];
+        const newDirection = this.config.directionMap[event.key];
         const isNotOppositeDirection = newDirection !== this.config.oppositeDirections[this.state.direction];
 
-        // Only allows to turn right or left 
-        // Not allows to go in opposite direction straight away
-        // Prevents direct reverse
-        if (isNotOppositeDirection) {
+        if (isNotOppositeDirection && newDirection) {
             this.state.direction = newDirection;
-        }.
+        }
     }
     
     isFoodEaten(head){
