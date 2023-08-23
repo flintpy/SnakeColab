@@ -95,3 +95,8 @@ class SnakeGame {
         this.gameBoard.appendChild(foodElement);
     }
 }
+
+document.getElementById('start-button').addEventListener('click', () => {
+    const difficulty = document.getElementById('difficulty').value;
+    new SnakeGame(difficulty);
+});
