@@ -3,20 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Advanced Snake Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="game-container">
-        <div id="score-board">Score: <span id="score">0</span></div>
-        <div id="game-board"></div>
-        <button id="start-button">Start Game</button>
-        <select id="difficulty">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-        </select>
-    </div>
-<script src="snake.js" defer></script>
+    <main id="game-container" role="main">
+        <header>
+            <h1>Advanced Snake Game</h1>
+            <p>Choose your difficulty and use your arrow keys to control the snake!</p>
+        </header>
+        <section>
+            <div role="status" id="score-board">
+                Score: <span id="score">0</span>
+            </div>
+            <div id="game-board" tabindex="0"></div>
+            <button id="start-button" aria-label="Start the game">Start Game</button>
+            <label for="difficulty"> Difficulty Level: </label>
+            <select id="difficulty" aria-label="Choose game difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+        </section>
+        <div id="error-message" style="display: none;">
+            <strong>Error:</strong> <span></span>
+        </div>
+    </main>
+    <script src="snake.js"></script>
+    <script>
+        window.onerror = function (message, source, lineno, colno, error) {
+            const errorElement = document.getElementById('error-message');
+            errorElement.style.display = 'block';
+            errorElement.querySelector('span').textContent = message;
+        };
+    </script>
 </body>
 </html>
