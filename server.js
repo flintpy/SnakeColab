@@ -19,10 +19,10 @@ class AdvancedServer {
     this.loadCustomMiddleware();
 
     this.app.get('/', (req, res) => {
-      res.sendFile('/content/advanced-snake-game/snake_game.html');
+      res.sendFile('/content/SnakeColab/snake_game.html');
   });
 
-    this.app.use('/content/advanced-snake-game', express.static('/content/advanced-snake-game'));
+    this.app.use('/content/SnakeColab', express.static('/content/SnakeColab'));
 
     // Serving static game files
     this.app.use('/game', express.static(path.join(__dirname, 'public')));
