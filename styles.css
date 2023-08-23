@@ -37,7 +37,10 @@
     position: relative;
     width: 80vmin;
     height: 80vmin;
-    overflow: hidden;
+    /* Apply specific styles for the canvas */
+    display: block;
+    margin: 0 auto;
+    background: #000;
 }
 
 #game-board .snake-part{
